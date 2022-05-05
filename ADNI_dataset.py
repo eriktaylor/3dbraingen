@@ -51,7 +51,7 @@ class ADNIdataset(Dataset):
 		path = os.path.join(path,rname,aname)
 		#print(path,'pass 2')
 		img_path = os.path.join(path,os.listdir(path)[0])
-		print(img_path)
+		#print(img_path)
 		#img = nib.load(os.path.join(path,'image.nii'))
 		img = nib.load(img_path)
 		
