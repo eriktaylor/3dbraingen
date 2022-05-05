@@ -11,7 +11,7 @@ import nibabel as nib
 class ADNIdataset(Dataset):
 	def __init__(self, root='../ADNI', augmentation=False):
 		self.root = root
-		self.basis = 'FreeSurfer_Cross-Sectional_Processing_brainmask'
+		#self.basis = 'FreeSurfer_Cross-Sectional_Processing_brainmask'
 		self.augmentation = augmentation
 		f = open('CN_list.csv','r')
 		rdr = csv.reader(f)
@@ -20,31 +20,39 @@ class ADNIdataset(Dataset):
 		name = []		
 		labels = []
 		date  = []
+		desc = []
 		for line in rdr:
 			[month,day,year] = line[9].split('/')
 			month = month.zfill(2)
 			date.append(year+'-'+month+'-'+day)
 			name.append(line[1])
+			desc.append(line[7].replace(' ','_'))
 
 		name = np.asarray(name)
 		date = np.asarray(date)
+		desc = np.asarray(desc)
 
 		self.name =name
 		self.date =date
+		self.desc =desc
 	def __len__(self):
 		return len(self.name)
 
 	def __getitem__(self, index):
-		path = os.path.join(self.root,self.name[index],self.basis)
+		#path = os.path.join(self.root,self.name[index],self.basis)
+		path = os.path.join(self.root,self.name[index],self.desc[index])
 		print(path)
 		files = os.listdir(path)
 		for file in files:
 			if file[:10] == self.date[index]:
 				rname = file
 		aname = os.listdir(os.path.join(path,rname))[0]
-		path = os.path.join(path,rname,aname,'mri')
-		img = nib.load(os.path.join(path,'image.nii'))
-
+		#path = os.path.join(path,rname,aname,'mri')
+		path = os.path.join(path,rname,aname)
+		img_path = os.path.join(path,os.listdir(path)[0])
+		#img = nib.load(os.path.join(path,'image.nii'))
+		img = nib.load(img_path)
+		
 		img = np.swapaxes(img.get_data(),1,2)
 		img = np.flip(img,1)
 		img = np.flip(img,2)
