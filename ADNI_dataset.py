@@ -67,11 +67,8 @@ class ADNIdataset(Dataset):
 					img = np.flip(img,0)
                 	
 				img = img*random_i.data.cpu().numpy()
-            
 			imageout = torch.from_numpy(img).float().view(1,sp_size,sp_size,sp_size)
 			imageout = imageout*2-1
-
 			return imageout
 		except OSError:
   			print('file load error')
-
