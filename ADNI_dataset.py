@@ -54,22 +54,24 @@ class ADNIdataset(Dataset):
 		#print(img_path)
 		#img = nib.load(os.path.join(path,'image.nii'))
 		img = nib.load(img_path)
-		
-		img = np.swapaxes(img.get_data(),1,2)
-		img = np.flip(img,1)
-		img = np.flip(img,2)
-		sp_size = 64
-		img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
-		if self.augmentation:
-			random_n = torch.rand(1)
-			random_i = 0.3*torch.rand(1)[0]+0.7
-			if random_n[0] > 0.5:
-				img = np.flip(img,0)
-                
-			img = img*random_i.data.cpu().numpy()
+		try:
+			img = np.swapaxes(img.get_data(),1,2)
+			img = np.flip(img,1)
+			img = np.flip(img,2)
+			sp_size = 64
+			img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
+			if self.augmentation:
+				random_n = torch.rand(1)
+				random_i = 0.3*torch.rand(1)[0]+0.7
+				if random_n[0] > 0.5:
+					img = np.flip(img,0)
+                	
+				img = img*random_i.data.cpu().numpy()
             
-		imageout = torch.from_numpy(img).float().view(1,sp_size,sp_size,sp_size)
-		imageout = imageout*2-1
+			imageout = torch.from_numpy(img).float().view(1,sp_size,sp_size,sp_size)
+			imageout = imageout*2-1
 
-		return imageout
+			return imageout
+		except OSError:
+  			print('file load error')
 
