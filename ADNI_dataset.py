@@ -18,13 +18,11 @@ class ADNIdataset(Dataset):
 
 		name = []f = open('CN_list.csv','r')
 		rdr = csv.reader(f)
+		next(rdr) #header
 		labels = []
 		date  = []
 		for line in rdr:
-			try:
-				[month,day,year] = line[9].split('/')
-			except ValueError:
-				print('error')
+			[month,day,year] = line[9].split('/')
 			month = month.zfill(2)
 			date.append(year+'-'+month+'-'+day)
 			name.append(line[1])
