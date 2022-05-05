@@ -36,6 +36,7 @@ class ADNIdataset(Dataset):
 
 	def __getitem__(self, index):
 		path = os.path.join(self.root,self.name[index],self.basis)
+		print(path)
 		files = os.listdir(path)
 		for file in files:
 			if file[:10] == self.date[index]:
