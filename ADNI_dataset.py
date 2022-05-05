@@ -15,10 +15,9 @@ class ADNIdataset(Dataset):
 		self.augmentation = augmentation
 		f = open('CN_list.csv','r')
 		rdr = csv.reader(f)
+		next(rdr) #skip header
 
-		name = []f = open('CN_list.csv','r')
-		rdr = csv.reader(f)
-		next(rdr) #header
+		name = []		
 		labels = []
 		date  = []
 		for line in rdr:
