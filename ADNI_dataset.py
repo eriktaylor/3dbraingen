@@ -41,7 +41,7 @@ class ADNIdataset(Dataset):
 	def __getitem__(self, index):
 		#path = os.path.join(self.root,self.name[index],self.basis)
 		path = os.path.join(self.root,self.name[index],self.desc[index])
-		print(path,'pass 1')
+		#print(path,'pass 1')
 		files = os.listdir(path)
 		for file in files:
 			if file[:10] == self.date[index]:
@@ -49,9 +49,9 @@ class ADNIdataset(Dataset):
 		aname = os.listdir(os.path.join(path,rname))[0]
 		#path = os.path.join(path,rname,aname,'mri')
 		path = os.path.join(path,rname,aname)
-		print(path,'pass 2')
+		#print(path,'pass 2')
 		img_path = os.path.join(path,os.listdir(path)[0])
-		print(img_path,'pass 3')
+		print(img_path)
 		#img = nib.load(os.path.join(path,'image.nii'))
 		img = nib.load(img_path)
 		
