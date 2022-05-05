@@ -9,7 +9,7 @@ from nilearn import surface
 import nibabel as nib
 
 class ADNIdataset(Dataset):
-	def __init__(self, root='/ADNI', augmentation=False):
+	def __init__(self, root='ADNI', augmentation=False):
 		self.root = root
 		#self.basis = 'FreeSurfer_Cross-Sectional_Processing_brainmask'
 		self.augmentation = augmentation
