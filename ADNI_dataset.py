@@ -23,8 +23,8 @@ class ADNIdataset(Dataset):
 		for line in rdr:
 			try:
 				[month,day,year] = line[9].split('/')
-			except e:
-				print(e)
+			except ValueError:
+				print('error')
 			month = month.zfill(2)
 			date.append(year+'-'+month+'-'+day)
 			name.append(line[1])
