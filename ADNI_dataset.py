@@ -58,7 +58,7 @@ class ADNIdataset(Dataset):
 		img = np.swapaxes(img.get_data(),1,2)
 		img = np.flip(img,1)
 		img = np.flip(img,2)
-		sp_size = 256
+		sp_size = 64
 		img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
 		if self.augmentation:
 			random_n = torch.rand(1)
